@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
-const API_URL = "http://localhost:5000/api/items";
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? `${window.location.origin}/api/items` : "http://localhost:5000/api/items");
 const sampleItems = [
   { _id: "sample-1", title: "Canvas tote bag", category: "Bags", location: "Liberty Market, Lahore", status: "Found", description: "Natural canvas tote with a tiny blue patch. Found by the coffee shop.", image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=900&q=85", time: "2H AGO" },
   { _id: "sample-2", title: "Silver wristwatch", category: "Accessories", location: "F-7 Markaz, Islamabad", status: "Lost", description: "Simple silver watch, dark green face. It means a lot to its owner.", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85", time: "YESTERDAY" },

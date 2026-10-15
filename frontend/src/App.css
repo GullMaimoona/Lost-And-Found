@@ -1,0 +1,13 @@
+/* App styling is handled with Tailwind utilities. */
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.045em !important;
+}
+
+.font-black {
+  font-weight: 800 !important;
+}

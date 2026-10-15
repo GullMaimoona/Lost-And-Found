@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", "Avenir Next", Avenir, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "DM Sans", "Avenir Next", Avenir, ui-sans-serif, system-ui, sans-serif;
+  --font-display: "DM Sans", "Avenir Next", Avenir, ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}

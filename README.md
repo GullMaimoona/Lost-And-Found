@@ -17,17 +17,17 @@ A React/Vite frontend and Express/MongoDB API for posting and finding lost items
 
 The Vite development site uses `http://localhost:5000/api/items` by default. Set `VITE_API_URL` to override it.
 
-## Deploy on Render
+## Deploy on Vercel
 
-The root `render.yaml` deploys the frontend and API together as one Render web service. It builds `frontend/dist`, serves it from Express, and uses `/api/health` for the health check. The production frontend calls the API on the same origin.
+Deploy the frontend and API as two Vercel projects from this same GitHub repository.
 
-1. Push this repository to GitHub and connect it in the Render Dashboard using **New + > Blueprint**.
-2. Render will ask for `MONGO_URI` and `ADMIN_API_KEY`. Use a cloud MongoDB connection string and a long random admin key; keep both values in Render's environment settings, never in GitHub.
-3. Create/apply the Blueprint and wait for the health check to pass. The deployed site and API share the resulting `onrender.com` URL.
+1. Create the backend project first and set its Root Directory to `backend`. Add `MONGO_URI` (your MongoDB Atlas connection string) and `ADMIN_API_KEY` (a long private key) as Production environment variables. Keep secrets out of GitHub.
+2. Deploy the backend and copy its production domain.
+3. Create a second Vercel project from the same repository. Set its Root Directory to `frontend` and add `VITE_API_URL` with the backend URL followed by `/api/items`, for example `https://your-api.vercel.app/api/items`.
+4. Deploy the frontend and copy its production domain. In the backend project's environment variables, set `FRONTEND_ORIGIN` to that exact origin, such as `https://your-site.vercel.app`, then redeploy the backend.
+5. Add the backend's outbound access to the MongoDB Atlas IP access list as needed. Vercel's outbound IP behavior depends on the plan; see [Vercel Secure Compute and IP addresses](https://vercel.com/docs/security/secure-compute).
 
-The local `.env` currently points at `127.0.0.1`, which is only reachable from the local machine. It cannot be used by Render. Create or use a MongoDB Atlas cluster, add the Render service's outbound IP addresses to the Atlas project's IP access list, and use an Atlas database user in the connection string. Atlas accepts connections only from IP addresses on that allowlist: [MongoDB Atlas IP access list docs](https://www.mongodb.com/docs/atlas/security/ip-access-list/).
-
-This Blueprint uses Render's free web-service plan. Render spins free services down after 15 minutes without requests; the next visit can take about a minute to wake up. See [Render free instance limits](https://render.com/docs/free).
+The frontend's Vercel rewrite supports direct visits to report pages. The backend's `api/[...path].js` function serves the Express API routes.
 
 ## Checks
 
